@@ -39,7 +39,8 @@ def main():
     q_result = query_all_patients(sf, soql)
 
     print(q_result[0])
-
+    print(q_result[1])
+    print(q_result[2])
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # call main #
