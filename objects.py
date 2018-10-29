@@ -24,6 +24,7 @@ document = sf.DTPC_Document__c
 program = sf.DTPC_Program__c
 sp = sf.DTPC_Specialty_Pharmacy__c
 taskplan = sf.DTPC_Task_Plan__c
+cap = sf.DTPC_Consent_Auth_Preference__c
 
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -36,14 +37,9 @@ def gather_object_names(sf):
     soql = "SELECT QualifiedApiName FROM EntityDefinition order by QualifiedApiName"
     query_objects = queries.query(sf, soql)
 
-    # query returns three items in a list: size, a boolean to say query is complete and the objects
-    amount_of_obj = query_objects[0]
-    query_done = query_objects[1]
-    all_objects = query_objects[2]
-
     # formatting objects into a list (stored in a dict with same key)
     return_objects = []
-    for the_object in all_objects:
+    for the_object in query_objects:
         return_objects.append(the_object['QualifiedApiName'])
-
+        
     return return_objects

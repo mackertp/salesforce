@@ -13,7 +13,6 @@ import connect_to_salesforce
 import queries
 import dml_methods
 import objects
-import pandas as pd
 
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -173,6 +172,7 @@ def select_obj():
         print("6) Document")
         print("7) Task Plan")
         print("8) Specialty Pharmacy")
+        print("9) CAP")
         selection = input("\n>> ")
 
         if selection == "1":
@@ -191,8 +191,20 @@ def select_obj():
             return objects.taskplan
         elif selection == "8":
             return objects.sp
+        elif selection == "9":
+            return objects.cap
         else:
             print("select a valid object")
+
+
+def send_query(sf):
+    soql = input("type in a query to send to salesforce\n\n>> ")
+    try:
+        answer = queries.query(sf, soql)
+    except:
+        answer = "You send an invalid query, try again"
+
+    print(answer)
 
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -202,14 +214,14 @@ def select_obj():
 def main():
     # connect to salesforce and instantiate all object names, return them in a list
     sf = connect_to_salesforce.connect()
-    all_objects = objects.gather_object_names(sf)
 
     # create a menu driven help box
     while True:
         print("\nWelcome to the salesforce toolbox, here we will showcase some of the capabilities we have\n")
         print("1) print all objects out")
         print("2) print object fields")
-        print("3) quit program")
+        print("3) query salesforce with a SOQL command")
+        print("4) quit program")
         selection = input("\n>> ")
 
         if selection == "1":
@@ -222,6 +234,9 @@ def main():
             get_fields(obj_description)
 
         elif selection == "3":
+            send_query(sf)
+
+        elif selection == "4":
             os._exit(0)
 
         else:

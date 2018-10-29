@@ -26,4 +26,4 @@ def query(sf, soql):
                 record_fields[key] = record[key]
         returned_records.append(record_fields)
 
-    return [size, done, returned_records]
+    return returned_records
